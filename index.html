@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Git &amp; GitHub Assistant — Your Intelligent Coding Companion</title>
+  <meta name="description"
+    content="A professional, corporate-grade AI assistant for Git version control and GitHub workflows. Get instant command assistance, error troubleshooting, tutorials, and step-by-step guidance.">
+  <link rel="stylesheet" href="static/css/style.css">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+
+<body>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Confirmation Modal -->
+  <div id="confirm-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="confirm-modal-title">Confirm Action</h3>
+        <button class="modal-close-btn" onclick="closeConfirmModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="confirm-modal-message">Are you sure you want to proceed?</div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" onclick="closeConfirmModal()">Cancel</button>
+        <button class="btn btn-danger" id="confirm-modal-btn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- Sidebar Overlay (mobile) -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- ═══ LEFT SIDEBAR ═══ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-content">
+        <!-- Logo & Branding -->
+        <div class="sidebar-header">
+          <div class="sidebar-logo">
+            <div class="logo-icon">⚡</div>
+            <div class="logo-details">
+              <div class="logo-text">Git &amp; GitHub</div>
+              <div class="logo-sub">Assistant</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- New Chat Button -->
+        <button class="new-chat-btn" id="new-chat-btn" onclick="startNewChat()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+          New Chat
+        </button>
+
+        <!-- Navigation Links -->
+        <nav class="sidebar-nav">
+          <div class="nav-section-label">Workspace</div>
+
+          <div class="nav-item active" data-panel="chat" onclick="switchPanel('chat', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
+            </svg>
+            Chat Assistant
+          </div>
+
+          <div class="nav-item" data-panel="commands" onclick="switchPanel('commands', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polyline points="4 17 10 11 4 5" />
+              <line x1="12" y1="20" x2="20" y2="19" />
+            </svg>
+            Git Commands
+          </div>
+
+          <div class="nav-item" data-panel="tutorials" onclick="switchPanel('tutorials', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+            </svg>
+            Git Tutorials
+          </div>
+
+          <div class="nav-item" data-panel="troubleshoot" onclick="switchPanel('troubleshoot', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            Git Troubleshooting
+          </div>
+
+          <div class="nav-item" data-panel="guides" onclick="switchPanel('guides', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path
+                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+            </svg>
+            GitHub Guides
+          </div>
+
+          <div class="nav-item" data-panel="concepts" onclick="switchPanel('concepts', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2" />
+              <polyline points="2 17 12 22 22 17" />
+              <polyline points="2 12 12 17 22 12" />
+            </svg>
+            Git Concepts
+          </div>
+
+          <div class="nav-item" data-panel="quiz" onclick="switchPanel('quiz', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+            Quiz Mode
+          </div>
+
+          <!-- Chat History -->
+          <div class="nav-section-label" style="display:flex; justify-content:space-between; align-items:center;">
+            <span>Chat History</span>
+            <button class="clear-all-history-btn" onclick="confirmClearAllHistory()" title="Clear all history"
+              style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:0.68rem;">Clear
+              All</button>
+          </div>
+          <div class="chat-history-section" id="chat-history-list">
+            <div class="chat-history-item" style="color: var(--text-muted); font-style: italic; cursor: default;">
+              No conversations yet
+            </div>
+          </div>
+        </nav>
+
+        <!-- Sidebar Footer -->
+        <div class="sidebar-footer">
+          <div class="nav-item" data-panel="settings" onclick="switchPanel('settings', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            </svg>
+            Settings
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ═══ MAIN APPLICATION AREA ═══ -->
+    <main class="main-area">
+      <!-- Top Header -->
+      <header class="header">
+        <button class="sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()" title="Toggle sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+        <div class="header-brand">
+          <span class="header-title" id="header-title">Git &amp; GitHub Assistant</span>
+          <span class="header-subtitle" id="header-subtitle">Your Intelligent Coding Companion</span>
+        </div>
+        <div class="header-status" id="header-status">
+          <span class="status-dot"></span>
+          <span id="status-text">Assistant Ready</span>
+        </div>
+        <button class="header-search-btn" onclick="openSearchModal()" title="Global command palette">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          Search
+          <span class="search-shortcut">Ctrl+K</span>
+        </button>
+      </header>
+
+      <!-- Main Content Panels -->
+      <div class="content-area">
+
+        <!-- ═══ PANEL: CHAT ═══ -->
+        <div class="content-panel active" id="panel-chat">
+          <div class="chat-panel">
+            <!-- Welcome Screen (shown when conversation is empty) -->
+            <div class="welcome-screen" id="welcome-screen">
+              <div class="welcome-icon">⚡</div>
+              <h1 class="welcome-heading">Git &amp; GitHub Assistant</h1>
+              <p class="welcome-subtitle">Your Intelligent Coding Companion — ask any question about Git commands,
+                GitHub collaboration, branch strategies, or troubleshooting errors.</p>
+              <div class="suggestion-cards">
+                <div class="suggestion-card"
+                  onclick="sendSuggestion('How do I connect my local project to GitHub and push for the first time?')">
+                  <span class="card-icon">🚀</span>
+                  <div>
+                    <div class="card-title">Upload Project to GitHub</div>
+                    <div class="card-text">Step-by-step setup from git init to first push</div>
+                  </div>
+                </div>
+                <div class="suggestion-card"
+                  onclick="sendSuggestion('Explain Git branching and how to merge branches without conflicts')">
+                  <span class="card-icon">🌿</span>
+                  <div>
+                    <div class="card-title">Master Branching &amp; Merging</div>
+                    <div class="card-text">Create, switch, merge, and clean up feature branches</div>
+                  </div>
+                </div>
+                <div class="suggestion-card"
+                  onclick="sendSuggestion('How do I fix: error failed to push some refs to rejected non-fast-forward?')">
+                  <span class="card-icon">🔧</span>
+                  <div>
+                    <div class="card-title">Troubleshoot Push Errors</div>
+                    <div class="card-text">Fix rejected pushes and pull before pushing safely</div>
+                  </div>
+                </div>
+                <div class="suggestion-card"
+                  onclick="sendSuggestion('How do I generate an SSH key and connect it to my GitHub account?')">
+                  <span class="card-icon">🔑</span>
+                  <div>
+                    <div class="card-title">Setup SSH Authentication</div>
+                    <div class="card-text">Passwordless, secure GitHub connection with ed25519</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Messages Container -->
+            <div class="messages-container" id="messages-container">
+              <!-- Messages injected dynamically by app.js -->
+            </div>
+
+            <!-- Typing / Processing Indicator -->
+            <div class="typing-indicator" id="typing-indicator">
+              <div class="msg-avatar assistant-avatar">⚡</div>
+              <div class="typing-dots">
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+              </div>
+              <span class="typing-label">Assistant is thinking...</span>
+            </div>
+
+            <!-- Chat Input Area -->
+            <div class="chat-input-area">
+              <div class="chat-input-wrapper">
+                <div class="chat-input-container">
+                  <textarea id="chat-input" rows="1"
+                    placeholder="Ask a question about Git commands, GitHub workflows, or errors... (Shift+Enter for new line)"
+                    onkeydown="handleInputKeydown(event)"></textarea>
+                  <button class="clear-input-btn" id="clear-input-btn" onclick="clearChatInput()" title="Clear text"
+                    style="display: none;">
+                    &times;
+                  </button>
+                </div>
+                <button class="send-btn" id="send-btn" onclick="sendMessage()" disabled title="Send message (Enter)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13" />
+                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Chat Footer & Status -->
+              <div class="chat-footer-info">
+                <span class="mode-badge" id="mode-badge">
+                  <span class="status-dot" style="width:6px;height:6px;animation:none;"></span>
+                  Checking AI Status...
+                </span>
+                <button class="clear-chat-btn" onclick="startNewChat()" title="Start fresh conversation">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                  New Session
+                </button>
+              </div>
+
+              <!-- Mandatory Professional Disclaimer -->
+              <div class="chat-disclaimer">
+                AI responses may require verification. Review commands before executing them in your terminal.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ PANEL: GIT COMMANDS ═══ -->
+        <div class="content-panel" id="panel-commands">
+          <div class="feature-panel">
+            <div class="feature-header">
+              <div class="feature-title">
+                <div class="feature-title-icon">⌨️</div>
+                Git Command Explorer
+              </div>
+              <p class="feature-description">Search, filter, and master essential Git terminal commands organized by
+                developer workflow.</p>
+            </div>
+            <div class="search-bar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input type="text" id="cmd-search"
+                placeholder="Search commands, syntax, or keywords (e.g. clone, checkout, push)..."
+                oninput="filterCommands()">
+            </div>
+            <div class="filter-tabs" id="cmd-filter-tabs">
+              <!-- Injected by app.js -->
+            </div>
+            <div class="commands-grid" id="commands-grid">
+              <!-- Injected by app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ PANEL: GIT TUTORIALS ═══ -->
+        <div class="content-panel" id="panel-tutorials">
+          <div class="feature-panel">
+            <div class="feature-header">
+              <div class="feature-title">
+                <div class="feature-title-icon">📖</div>
+                Git &amp; GitHub Tutorials
+              </div>
+              <p class="feature-description">Interactive, step-by-step guides with runnable terminal commands, expected
+                outputs, and warnings.</p>
+            </div>
+            <div class="tutorials-list" id="tutorials-list">
+              <!-- Injected by app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ PANEL: GIT TROUBLESHOOTING ═══ -->
+        <div class="content-panel" id="panel-troubleshoot">
+          <div class="feature-panel">
+            <div class="feature-header">
+              <div class="feature-title">
+                <div class="feature-title-icon">🔍</div>
+                Git Error Troubleshooter
+              </div>
+              <p class="feature-description">Paste any terminal error message below to receive root causes, safe fixes,
+                and copyable commands.</p>
+            </div>
+            <div class="error-input-area">
+              <textarea id="error-paste-input"
+                placeholder="Paste your Git error message here...&#10;Example: fatal: not a git repository (or any of the parent directories): .git"></textarea>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+                <button class="analyze-btn" onclick="analyzeError()">Analyze Error</button>
+                <button class="btn btn-secondary" onclick="document.getElementById('error-paste-input').value='';"
+                  style="font-size:0.75rem;">Clear Input</button>
+              </div>
+            </div>
+            <div class="error-result" id="error-result">
+              <!-- Injected dynamically by app.js -->
+            </div>
+            <div class="search-bar" style="margin-top: 24px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input type="text" id="error-search"
+                placeholder="Search error catalog (e.g., authentication, detached HEAD, publickey)..."
+                oninput="filterErrors()">
+            </div>
+            <div class="errors-grid" id="errors-grid">
+              <!-- Injected dynamically by app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ PANEL: GITHUB GUIDES ═══ -->
+        <div class="content-panel" id="panel-guides">
+          <div class="feature-panel">
+            <div class="feature-header">
+              <div class="feature-title">
+                <div class="feature-title-icon">🐙</div>
+                GitHub Guides &amp; Workflows
+              </div>
+              <p class="feature-description">In-depth guides for collaborative software development on GitHub.</p>
+            </div>
+            <div class="concepts-grid" id="github-guides-grid">
+              <!-- Injected dynamically by app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ PANEL: GIT CONCEPTS ═══ -->
+        <div class="content-panel" id="panel-concepts">
+          <div class="feature-panel">
+            <div class="feature-header">
+              <div class="feature-title">
+                <div class="feature-title-icon">💡</div>
+                Git Concepts Learning Center
+              </div>
+              <p class="feature-description">Visual explanations of version control principles, data structures, and the
+                Git vs GitHub comparison.</p>
+            </div>
+            <div class="concepts-grid" id="concepts-grid">
+              <!-- Injected dynamically by app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ PANEL: QUIZ MODE ═══ -->
+        <div class="content-panel" id="panel-quiz">
+          <div class="feature-panel">
+            <div class="feature-header">
+              <div class="feature-title">
+                <div class="feature-title-icon">🧠</div>
+                Git Knowledge Verification Quiz
+              </div>
+              <p class="feature-description">Test your Git and GitHub comprehension with instant scoring and detailed
+                answer explanations.</p>
+            </div>
+            <div class="quiz-container" id="quiz-container">
+              <!-- Injected dynamically by app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ PANEL: SETTINGS ═══ -->
+        <div class="content-panel" id="panel-settings">
+          <div class="feature-panel">
+            <div class="feature-header">
+              <div class="feature-title">
+                <div class="feature-title-icon">⚙️</div>
+                Application Settings &amp; AI Configuration
+              </div>
+              <p class="feature-description">Manage AI provider credentials, verify connectivity, and control cached
+                conversation data.</p>
+            </div>
+
+            <div class="settings-group">
+              <div class="settings-group-title">AI Provider &amp; Model Status</div>
+              <div class="setting-row">
+                <span class="setting-label">Current Operating Mode</span>
+                <span class="setting-value" id="settings-mode">Checking...</span>
+              </div>
+              <div class="setting-row">
+                <span class="setting-label">Active Provider</span>
+                <span class="setting-value" id="settings-provider">Google Gemini / Local Fallback</span>
+              </div>
+              <div class="setting-row" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                <span class="setting-label">How to enable real Google Gemini LLM:</span>
+                <div style="font-size:0.8rem; color:var(--text-secondary); line-height:1.5;">
+                  1. Open your <code>.env</code> file in the project root.<br>
+                  2. Set <code>GEMINI_API_KEY=your_key_here</code> (get a free key from <a
+                    href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio</a>).<br>
+                  3. Restart the Flask application: <code>python app.py</code>.<br>
+                  4. The assistant will automatically switch from Local Knowledge Base mode to Gemini 2.0 Flash!
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <div class="settings-group-title">Data Storage &amp; Privacy</div>
+              <div class="setting-row">
+                <span class="setting-label">Conversations Stored Locally</span>
+                <span class="setting-value" id="settings-session-count">0 sessions</span>
+              </div>
+              <div class="setting-row">
+                <span class="setting-label">Clear all conversation history and reset preferences</span>
+                <button class="clear-data-btn" onclick="confirmClearAllData()">Reset All Data</button>
+              </div>
+            </div>
+
+            <div class="settings-group">
+              <div class="settings-group-title">About Git &amp; GitHub Assistant</div>
+              <div class="setting-row">
+                <span class="setting-label">Project Type</span>
+                <span class="setting-value">College CIE-3 Artificial Intelligence Project</span>
+              </div>
+              <div class="setting-row">
+                <span class="setting-label">Architecture</span>
+                <span class="setting-value">Flask REST API + Vanilla JS + Dual-Engine AI</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ═══ GLOBAL SEARCH MODAL (Ctrl+K) ═══ -->
+  <div class="search-modal-overlay" id="search-modal" onclick="closeSearchModal(event)">
+    <div class="search-modal" onclick="event.stopPropagation()">
+      <div class="search-modal-input">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+        <input type="text" id="global-search-input" placeholder="Search commands, tutorials, errors, and concepts..."
+          oninput="globalSearch(this.value)">
+        <button class="modal-close-btn" onclick="closeSearchModal()">&times;</button>
+      </div>
+      <div class="search-results" id="search-results">
+        <div class="search-empty">Type to search across all features...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Application Scripts -->
+  <script src="static/js/app.js"></script>
+
+</body>
+
+</html>

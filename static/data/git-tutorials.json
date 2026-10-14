@@ -1,0 +1,333 @@
+[
+  {
+    "id": 1,
+    "title": "Create a GitHub Repository",
+    "description": "Learn how to create a new remote repository on GitHub to store and share your code.",
+    "steps": [
+      {
+        "step": 1,
+        "title": "Log in to GitHub",
+        "instruction": "Open your web browser and navigate to GitHub. Sign in to your account, or click 'Sign up' if you don't have an account yet.",
+        "code": "https://github.com",
+        "result": "You will be on your GitHub dashboard.",
+        "mistake": "Creating a repo without signing in first or forgetting your login credentials."
+      },
+      {
+        "step": 2,
+        "title": "Create a New Repository",
+        "instruction": "In the upper-right corner of any page, click the '+' icon and select 'New repository'. Alternatively, click the green 'New' button on your dashboard.",
+        "code": "",
+        "result": "Opens the 'Create a new repository' setup page.",
+        "mistake": "Naming the repo with spaces or special symbols instead of kebab-case (e.g. my-project)."
+      },
+      {
+        "step": 3,
+        "title": "Configure Repository Settings",
+        "instruction": "Enter a short, memorable repository name. Choose Public (anyone can see it) or Private. Leave 'Add a README file' UNCHECKED if you are uploading an existing local project.",
+        "code": "",
+        "result": "Repository is created and GitHub displays your unique clone/push URL.",
+        "warning": "If you check 'Add a README' when you already have code locally, you will encounter merge conflicts on your first push!",
+        "mistake": "Checking 'Add a README' or '.gitignore' when importing an existing local folder."
+      },
+      {
+        "step": 4,
+        "title": "Copy Your Repository URL",
+        "instruction": "Copy the HTTPS URL shown on the quick-setup page. It will look like https://github.com/YOUR-USERNAME/YOUR-REPO.git.",
+        "code": "https://github.com/YOUR-USERNAME/YOUR-REPO.git",
+        "result": "URL copied to clipboard for use in terminal commands.",
+        "warning": "Remember to replace YOUR-USERNAME and YOUR-REPO with your actual GitHub username and repository name!"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Connect a Local Project to GitHub",
+    "description": "Link an existing project folder on your computer to your remote GitHub repository.",
+    "steps": [
+      {
+        "step": 1,
+        "title": "Open Terminal & Navigate to Project",
+        "instruction": "Open Command Prompt, PowerShell, or Git Bash, and navigate into your project folder.",
+        "code": "cd path/to/your-project",
+        "result": "Your terminal prompt shows your project directory.",
+        "mistake": "Running commands from Desktop or User home directory instead of inside the project folder."
+      },
+      {
+        "step": 2,
+        "title": "Initialize Git Repository",
+        "instruction": "Initialize a new Git repository in the current directory if you haven't already.",
+        "code": "git init",
+        "result": "Initialized empty Git repository in .../.git/",
+        "mistake": "Running git init multiple times in parent and subfolders."
+      },
+      {
+        "step": 3,
+        "title": "Add Remote Origin",
+        "instruction": "Connect your local Git repository to your GitHub remote. Replace the URL with your actual GitHub repository URL.",
+        "code": "git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPO.git",
+        "result": "Local Git now knows where 'origin' points.",
+        "warning": "Replace 'YOUR-USERNAME' and 'YOUR-REPO' with your real GitHub details!",
+        "mistake": "Pasting the example URL directly without replacing username and repo name."
+      },
+      {
+        "step": 4,
+        "title": "Verify Connection",
+        "instruction": "Check that the remote URL was set correctly.",
+        "code": "git remote -v",
+        "result": "origin  https://github.com/YOUR-USERNAME/YOUR-REPO.git (fetch)\norigin  https://github.com/YOUR-USERNAME/YOUR-REPO.git (push)",
+        "mistake": "If you see 'fatal: remote origin already exists', use: git remote set-url origin <url>"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Upload Code for the First Time",
+    "description": "Stage your files, commit your initial snapshot, set main branch, and push your code to GitHub.",
+    "steps": [
+      {
+        "step": 1,
+        "title": "Check Repository Status",
+        "instruction": "Inspect which files are untracked and modified.",
+        "code": "git status",
+        "result": "Displays list of untracked files in red.",
+        "mistake": "Forgetting to create a .gitignore file before staging secrets or node_modules."
+      },
+      {
+        "step": 2,
+        "title": "Stage All Files",
+        "instruction": "Stage all files in the current folder for the first commit.",
+        "code": "git add .",
+        "result": "All files move to the staging area (ready to be committed).",
+        "mistake": "Staging massive binary files, virtual environments (.venv), or node_modules."
+      },
+      {
+        "step": 3,
+        "title": "Commit Your Changes",
+        "instruction": "Save the snapshot with a meaningful commit message.",
+        "code": "git commit -m \"Initial commit: Project setup and starter files\"",
+        "result": "[main (root-commit) 7a1b2c3] Initial commit: ...",
+        "mistake": "Using vague messages like 'asdf' or 'update'."
+      },
+      {
+        "step": 4,
+        "title": "Rename Default Branch to Main",
+        "instruction": "Ensure your default branch is named 'main' to match modern GitHub standards.",
+        "code": "git branch -M main",
+        "result": "Current branch renamed to 'main'.",
+        "mistake": "Pushing to 'master' when GitHub repository expects 'main'."
+      },
+      {
+        "step": 5,
+        "title": "Push to GitHub (Set Upstream)",
+        "instruction": "Push your local commits to origin main and set tracking.",
+        "code": "git push -u origin main",
+        "result": "Branch 'main' set up to track remote branch 'main' from 'origin'. Your code is live on GitHub!",
+        "mistake": "If prompted for authentication, GitHub requires a Personal Access Token (PAT) or SSH key, not your account password."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Push Subsequent Changes",
+    "description": "Learn the everyday development loop: make changes, stage them, commit, and push updates to GitHub.",
+    "steps": [
+      {
+        "step": 1,
+        "title": "Check Modified Files",
+        "instruction": "View what has changed since your last commit.",
+        "code": "git status",
+        "result": "Shows modified files in red under 'Changes not staged for commit'.",
+        "mistake": "Not checking git status before staging to review what you changed."
+      },
+      {
+        "step": 2,
+        "title": "Inspect Line Diffs (Optional)",
+        "instruction": "See exact line additions and deletions before staging.",
+        "code": "git diff",
+        "result": "Green '+' lines indicate additions, red '-' lines indicate removals.",
+        "mistake": "Overlooking accidental console.log or temporary test code."
+      },
+      {
+        "step": 3,
+        "title": "Stage and Commit",
+        "instruction": "Stage your changes and commit with a concise, descriptive message.",
+        "code": "git add .\ngit commit -m \"Add navigation bar and responsive styling\"",
+        "result": "Files committed to your local Git history.",
+        "mistake": "Grouping unrelated features into one giant commit."
+      },
+      {
+        "step": 4,
+        "title": "Push to Remote",
+        "instruction": "Send your new commits to GitHub. Since upstream was set previously, you can simply run git push.",
+        "code": "git push",
+        "result": "Counting objects... Writing objects: 100%... Successfully pushed to origin/main.",
+        "mistake": "If push is rejected, run 'git pull' first to fetch remote updates."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Create and Switch Branches",
+    "description": "Isolate new features and bug fixes by creating independent branches without affecting production code.",
+    "steps": [
+      {
+        "step": 1,
+        "title": "List Existing Branches",
+        "instruction": "See all local branches and which one is currently active (marked with an asterisk *).",
+        "code": "git branch",
+        "result": "* main",
+        "mistake": "Branching off an outdated branch instead of pulling main first."
+      },
+      {
+        "step": 2,
+        "title": "Create and Switch to a Feature Branch",
+        "instruction": "Use 'git switch -c' (modern) or 'git checkout -b' to create and immediately switch to a new branch.",
+        "code": "git switch -c feature-auth-system",
+        "result": "Switched to a new branch 'feature-auth-system'",
+        "mistake": "Using spaces in branch names. Use hyphens like feature-login or bugfix-header."
+      },
+      {
+        "step": 3,
+        "title": "Work and Commit on the Branch",
+        "instruction": "Make your edits freely. Changes will only affect this feature branch.",
+        "code": "git add .\ngit commit -m \"Implement JWT token verification\"",
+        "result": "[feature-auth-system 3b8c4d1] Implement JWT token verification",
+        "mistake": "Switching branches with unstaged dirty work. Use 'git stash' if needed."
+      },
+      {
+        "step": 4,
+        "title": "Push Feature Branch to GitHub",
+        "instruction": "Publish your branch to GitHub so colleagues can review it or build on it.",
+        "code": "git push -u origin feature-auth-system",
+        "result": "Branch 'feature-auth-system' created on GitHub.",
+        "mistake": "Forgetting the '-u origin <branch>' on the first push of a new branch."
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Create a Pull Request (PR)",
+    "description": "Propose merging your feature branch into main with team peer review and automated testing.",
+    "steps": [
+      {
+        "step": 1,
+        "title": "Push Your Branch to GitHub",
+        "instruction": "Make sure all your latest commits are pushed to the remote branch.",
+        "code": "git push origin feature-auth-system",
+        "result": "GitHub receives all latest commits for the branch.",
+        "mistake": "Forgetting to push your final commits before opening the PR."
+      },
+      {
+        "step": 2,
+        "title": "Open Pull Request on GitHub",
+        "instruction": "Visit your repository on GitHub. You'll see a yellow banner: 'feature-auth-system had recent pushes'. Click 'Compare & pull request'.",
+        "code": "",
+        "result": "Opens the Pull Request creation form.",
+        "mistake": "Comparing against the wrong base branch (ensure base: main <- compare: feature-branch)."
+      },
+      {
+        "step": 3,
+        "title": "Write Description & Submit",
+        "instruction": "Provide a clear summary of what changes were made, why, and how to test them.",
+        "code": "## Summary\n- Added user authentication endpoints\n- Integrated token refresh\n\n## Testing\n- Tested with Postman & unit tests",
+        "result": "Pull request is opened, assigned reviewers get notified, and CI checks run.",
+        "mistake": "Leaving PR title and description completely empty."
+      },
+      {
+        "step": 4,
+        "title": "Merge Pull Request",
+        "instruction": "Once approved, click 'Merge pull request' -> 'Confirm merge'. On your local machine, switch back to main and pull the merged changes.",
+        "code": "git switch main\ngit pull origin main\ngit branch -d feature-auth-system",
+        "result": "Local main is now updated with the merged changes, and the feature branch is cleaned up.",
+        "mistake": "Continuing to develop on the old feature branch after it has already been merged."
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Resolve a Merge Conflict",
+    "description": "Understand why merge conflicts happen and follow safe, step-by-step resolution without losing work.",
+    "steps": [
+      {
+        "step": 1,
+        "title": "Identify the Conflict",
+        "instruction": "When Git cannot automatically combine two changes to the same line, it alerts you with CONFLICT.",
+        "code": "git pull origin main\n# CONFLICT (content): Merge conflict in index.html\n# Automatic merge failed; fix conflicts and then commit the result.",
+        "result": "Git pauses the merge and marks conflicting files.",
+        "mistake": "Panicking or deleting files. Conflicts are a completely normal part of team development!"
+      },
+      {
+        "step": 2,
+        "title": "Inspect Conflict Markers in Editor",
+        "instruction": "Open the conflicting file in VS Code or your editor. Look for conflict markers:",
+        "code": "<<<<<<< HEAD\n<h1 class=\"title\">My Local Title</h1>\n=======\n<h1 class=\"title\">Team Remote Title</h1>\n>>>>>>> origin/main",
+        "result": "HEAD represents your local changes; the bottom part represents incoming changes from remote.",
+        "mistake": "Leaving '<<<<<<<', '=======', or '>>>>>>>' markers in your code."
+      },
+      {
+        "step": 3,
+        "title": "Choose & Edit Desired Code",
+        "instruction": "Manually edit the file to keep the desired code (or combine both). Delete all three conflict marker lines.",
+        "code": "<h1 class=\"title\">Git &amp; GitHub Assistant — Your Intelligent Coding Companion</h1>",
+        "result": "The file contains clean, valid code without any marker syntax.",
+        "mistake": "Accidentally deleting closing tags, semicolons, or braces while editing."
+      },
+      {
+        "step": 4,
+        "title": "Stage and Finalize Merge",
+        "instruction": "Stage the resolved file and commit to complete the merge.",
+        "code": "git add index.html\ngit commit -m \"Resolve merge conflict in index.html\"\ngit push origin main",
+        "result": "Merge is successfully completed and pushed to GitHub!",
+        "warning": "If you ever get stuck or want to cancel the merge entirely, run: git merge --abort",
+        "mistake": "Running destructive commands like 'git reset --hard' which will delete all your uncommitted work!"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Create a Professional README File",
+    "description": "Structure a high-quality Markdown README.md file that showcases your project to visitors and recruiters.",
+    "steps": [
+      {
+        "step": 1,
+        "title": "Create README.md File",
+        "instruction": "Create a new file named README.md in the root directory of your project.",
+        "code": "touch README.md",
+        "result": "Empty README.md created in root directory.",
+        "mistake": "Creating readme.txt or Readme.doc instead of README.md with Markdown formatting."
+      },
+      {
+        "step": 2,
+        "title": "Add Title & Badges",
+        "instruction": "Start with a prominent title, tagline, and project badges.",
+        "code": "# ⚡ Git & GitHub Assistant\n> Your Intelligent Coding Companion\n\n![License](https://img.shields.io/badge/license-MIT-blue.svg)\n![Python](https://img.shields.io/badge/python-3.10%2B-brightgreen.svg)",
+        "result": "Visually appealing header on GitHub.",
+        "mistake": "Not providing a clear 1-2 sentence elevator pitch of what the app does."
+      },
+      {
+        "step": 3,
+        "title": "Include Features & Tech Stack",
+        "instruction": "List key capabilities and technologies used.",
+        "code": "## ✨ Key Features\n- 🤖 Interactive AI Chatbot\n- ⌨️ Searchable Git Command Explorer\n- 📖 Step-by-Step GitHub Tutorials\n- 🔍 Git Error Troubleshooter\n\n## 🛠️ Tech Stack\n- Frontend: HTML5, CSS3, JavaScript\n- Backend: Python Flask\n- AI: Google Gemini API & Local Fallback",
+        "result": "Clear structural overview for readers and evaluators.",
+        "mistake": "Listing vague features without explaining how to use the app."
+      },
+      {
+        "step": 4,
+        "title": "Add Installation & Usage Instructions",
+        "instruction": "Provide exact, copyable command snippets so anyone can run your project locally.",
+        "code": "## 🚀 Quick Start\n```bash\ngit clone https://github.com/YOUR-USERNAME/gitmate-ai.git\ncd gitmate-ai\npip install -r requirements.txt\npython app.py\n```",
+        "result": "Complete, working guide that anyone can clone and test.",
+        "mistake": "Assuming dependencies are already installed or omitting port information."
+      },
+      {
+        "step": 5,
+        "title": "Stage, Commit & Push",
+        "instruction": "Commit your README and push it to GitHub to see the formatted output immediately.",
+        "code": "git add README.md\ngit commit -m \"docs: Add comprehensive README.md with setup guide\"\ngit push",
+        "result": "GitHub automatically renders README.md on the repository homepage.",
+        "mistake": "Not previewing markdown formatting before pushing."
+      }
+    ]
+  }
+]

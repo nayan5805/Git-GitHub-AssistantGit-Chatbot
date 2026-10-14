@@ -1,0 +1,227 @@
+[
+  {
+    "category": "Getting Started",
+    "commands": [
+      {
+        "name": "git init",
+        "syntax": "git init",
+        "description": "Initialize a new Git repository in the current directory. This creates a hidden .git folder that tracks all changes.",
+        "example": "cd my-project\ngit init"
+      },
+      {
+        "name": "git config",
+        "syntax": "git config --global user.name \"Your Name\"\ngit config --global user.email \"you@example.com\"",
+        "description": "Set your Git username and email. The --global flag applies it to all repositories on your system.",
+        "example": "git config --global user.name \"Nayan Jain\"\ngit config --global user.email \"nayan@example.com\""
+      },
+      {
+        "name": "git version",
+        "syntax": "git --version",
+        "description": "Check which version of Git is installed on your system.",
+        "example": "git --version\n# Output: git version 2.42.0"
+      }
+    ]
+  },
+  {
+    "category": "Repository Management",
+    "commands": [
+      {
+        "name": "git clone",
+        "syntax": "git clone <repository-url>",
+        "description": "Create a local copy of a remote repository. Downloads all files, branches, and commit history.",
+        "example": "git clone https://github.com/username/repo-name.git"
+      },
+      {
+        "name": "git remote -v",
+        "syntax": "git remote -v",
+        "description": "View all remote repositories connected to your local project. Shows fetch and push URLs.",
+        "example": "git remote -v\n# origin  https://github.com/user/repo.git (fetch)\n# origin  https://github.com/user/repo.git (push)"
+      },
+      {
+        "name": "git remote add",
+        "syntax": "git remote add <name> <url>",
+        "description": "Connect your local repository to a remote repository on GitHub or another hosting service.",
+        "example": "git remote add origin https://github.com/username/my-project.git"
+      }
+    ]
+  },
+  {
+    "category": "File Tracking",
+    "commands": [
+      {
+        "name": "git status",
+        "syntax": "git status",
+        "description": "Show the current state of your working directory. Lists modified, staged, and untracked files.",
+        "example": "git status\n# On branch main\n# Changes not staged for commit:\n#   modified: index.html"
+      },
+      {
+        "name": "git add",
+        "syntax": "git add <file>\ngit add .",
+        "description": "Stage files for the next commit. Use '.' to stage all changed files, or specify individual files.",
+        "example": "git add index.html      # Stage one file\ngit add .               # Stage all files"
+      },
+      {
+        "name": "git diff",
+        "syntax": "git diff",
+        "description": "Show the exact changes made to files that haven't been staged yet. Shows line-by-line differences.",
+        "example": "git diff\ngit diff --staged    # Show changes that are staged"
+      },
+      {
+        "name": "git rm",
+        "syntax": "git rm <file>",
+        "description": "Remove a file from the working directory and stage the deletion for the next commit.",
+        "example": "git rm old-file.txt"
+      }
+    ]
+  },
+  {
+    "category": "Commits",
+    "commands": [
+      {
+        "name": "git commit",
+        "syntax": "git commit -m \"message\"",
+        "description": "Save staged changes as a new commit with a descriptive message. Each commit is a snapshot of your project.",
+        "example": "git commit -m \"Add login page design\""
+      },
+      {
+        "name": "git log",
+        "syntax": "git log\ngit log --oneline",
+        "description": "View the commit history. Use --oneline for a compact view showing commit hash and message.",
+        "example": "git log --oneline\n# a1b2c3d Add login page\n# e4f5g6h Initial commit"
+      },
+      {
+        "name": "git show",
+        "syntax": "git show <commit-hash>",
+        "description": "Display detailed information about a specific commit, including the changes made.",
+        "example": "git show a1b2c3d"
+      },
+      {
+        "name": "git commit --amend",
+        "syntax": "git commit --amend -m \"new message\"",
+        "description": "Modify the most recent commit. Useful for fixing typos in commit messages or adding forgotten files.",
+        "example": "git add forgotten-file.js\ngit commit --amend -m \"Add login page with validation\""
+      }
+    ]
+  },
+  {
+    "category": "Branching",
+    "commands": [
+      {
+        "name": "git branch",
+        "syntax": "git branch\ngit branch <name>",
+        "description": "List all branches or create a new branch. The current branch is marked with an asterisk (*).",
+        "example": "git branch           # List branches\ngit branch feature   # Create 'feature' branch"
+      },
+      {
+        "name": "git switch",
+        "syntax": "git switch <branch-name>",
+        "description": "Switch to a different branch. This is the modern replacement for 'git checkout' for switching branches.",
+        "example": "git switch feature\ngit switch -c new-feature   # Create and switch"
+      },
+      {
+        "name": "git checkout",
+        "syntax": "git checkout <branch-name>\ngit checkout -b <new-branch>",
+        "description": "Switch branches or create and switch to a new branch. Older command, still widely used.",
+        "example": "git checkout main\ngit checkout -b bugfix    # Create and switch"
+      },
+      {
+        "name": "git branch -d",
+        "syntax": "git branch -d <branch-name>",
+        "description": "Delete a branch that has been fully merged. Use -D (capital) to force delete an unmerged branch.",
+        "example": "git branch -d feature     # Safe delete\ngit branch -D experiment  # Force delete"
+      }
+    ]
+  },
+  {
+    "category": "Merging",
+    "commands": [
+      {
+        "name": "git merge",
+        "syntax": "git merge <branch-name>",
+        "description": "Combine changes from another branch into the current branch. First switch to the target branch.",
+        "example": "git switch main\ngit merge feature"
+      },
+      {
+        "name": "git rebase",
+        "syntax": "git rebase <branch-name>",
+        "description": "Reapply your commits on top of another branch. Creates a cleaner, linear history compared to merge.",
+        "example": "git switch feature\ngit rebase main"
+      }
+    ]
+  },
+  {
+    "category": "Remote Repositories",
+    "commands": [
+      {
+        "name": "git push",
+        "syntax": "git push <remote> <branch>",
+        "description": "Upload your local commits to a remote repository. Shares your work with others.",
+        "example": "git push origin main\ngit push -u origin main   # Set upstream tracking"
+      },
+      {
+        "name": "git pull",
+        "syntax": "git pull <remote> <branch>",
+        "description": "Download and integrate changes from the remote repository. Combines fetch and merge in one step.",
+        "example": "git pull origin main"
+      },
+      {
+        "name": "git fetch",
+        "syntax": "git fetch <remote>",
+        "description": "Download changes from the remote repository without merging them. Lets you review before integrating.",
+        "example": "git fetch origin\ngit diff main origin/main   # Compare before merging"
+      }
+    ]
+  },
+  {
+    "category": "Undoing Changes",
+    "commands": [
+      {
+        "name": "git restore",
+        "syntax": "git restore <file>",
+        "description": "Discard changes in the working directory. Restores a file to its last committed state.",
+        "example": "git restore index.html\ngit restore --staged index.html   # Unstage a file"
+      },
+      {
+        "name": "git reset",
+        "syntax": "git reset <commit>\ngit reset --hard <commit>",
+        "description": "Move the branch pointer to a previous commit. --hard discards all changes (use with caution!).",
+        "example": "git reset HEAD~1          # Undo last commit, keep changes\ngit reset --hard HEAD~1   # ⚠️ Undo last commit, DISCARD changes"
+      },
+      {
+        "name": "git stash",
+        "syntax": "git stash\ngit stash pop",
+        "description": "Temporarily save uncommitted changes and restore a clean working directory. Pop to re-apply them later.",
+        "example": "git stash             # Save current changes\ngit stash pop         # Re-apply saved changes\ngit stash list        # View all stashes"
+      },
+      {
+        "name": "git revert",
+        "syntax": "git revert <commit-hash>",
+        "description": "Create a new commit that undoes the changes from a specific commit. Safer than reset for shared branches.",
+        "example": "git revert a1b2c3d"
+      }
+    ]
+  },
+  {
+    "category": "Troubleshooting",
+    "commands": [
+      {
+        "name": "git reflog",
+        "syntax": "git reflog",
+        "description": "Show a log of all reference updates. Useful for recovering lost commits or undoing mistakes.",
+        "example": "git reflog\n# a1b2c3d HEAD@{0}: commit: Add feature\n# e4f5g6h HEAD@{1}: checkout: moving from main to feature"
+      },
+      {
+        "name": "git clean",
+        "syntax": "git clean -fd",
+        "description": "Remove untracked files and directories. Use -n for a dry run to preview what will be deleted.",
+        "example": "git clean -n    # Preview\ngit clean -fd   # Actually remove"
+      },
+      {
+        "name": "git bisect",
+        "syntax": "git bisect start\ngit bisect bad\ngit bisect good <commit>",
+        "description": "Use binary search to find the commit that introduced a bug. Very helpful for debugging.",
+        "example": "git bisect start\ngit bisect bad          # Current commit is bad\ngit bisect good v1.0    # This version was good"
+      }
+    ]
+  }
+]

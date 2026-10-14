@@ -1,0 +1,90 @@
+[
+  {
+    "id": "github-repos",
+    "icon": "📦",
+    "title": "Creating & Configuring Repositories",
+    "category": "Repository Management",
+    "summary": "Master public vs private repositories, branch protection rules, templates, and collaborator access.",
+    "steps": [
+      "Navigate to github.com and click 'New' repository.",
+      "Choose a repository name using kebab-case (e.g., project-backend).",
+      "Set visibility: Public (visible to world) or Private (only you and invited collaborators).",
+      "Configure Branch Protection Rules in Settings > Branches to require code reviews before merging into main."
+    ],
+    "proTip": "Never commit credentials or database passwords. Add .env to .gitignore before your first commit."
+  },
+  {
+    "id": "pull-requests",
+    "icon": "🔀",
+    "title": "Pull Requests & Code Reviews",
+    "category": "Collaboration",
+    "summary": "How professional engineering teams propose, review, test, and merge code changes safely.",
+    "steps": [
+      "Push your feature branch to GitHub: git push -u origin feature-name",
+      "Click 'Compare & pull request' on the GitHub repository homepage.",
+      "Add a descriptive title and structured summary (What changed, Why, How to test).",
+      "Request review from peers. Reviewers can approve, request changes, or leave inline comments.",
+      "Once approved and CI checks pass, click 'Squash and merge' or 'Merge pull request'."
+    ],
+    "proTip": "Keep PRs small (under 400 lines). Small PRs get reviewed 2x faster and have fewer bugs."
+  },
+  {
+    "id": "forking-workflow",
+    "icon": "🍴",
+    "title": "Forking & Open Source Contribution",
+    "category": "Open Source",
+    "summary": "Contribute to third-party repositories without having direct write access to the upstream repo.",
+    "steps": [
+      "Click the 'Fork' button on the top right of the target GitHub repository.",
+      "Clone your personal fork: git clone https://github.com/YOUR-USERNAME/repo.git",
+      "Add the original repo as an upstream remote: git remote add upstream https://github.com/ORIGINAL-OWNER/repo.git",
+      "Fetch upstream changes regularly: git fetch upstream && git merge upstream/main",
+      "Push changes to your fork and submit a Pull Request back to the original repository."
+    ],
+    "proTip": "Always create a new branch for each contribution rather than committing directly on main."
+  },
+  {
+    "id": "ssh-keys",
+    "icon": "🔑",
+    "title": "SSH Keys & Two-Factor Authentication (2FA)",
+    "category": "Security",
+    "summary": "Connect securely to GitHub from your terminal without entering passwords on every push.",
+    "steps": [
+      "Generate an Ed25519 SSH key: ssh-keygen -t ed25519 -C \"your_email@example.com\"",
+      "Start the ssh-agent: eval \"$(ssh-agent -s)\" and add key: ssh-add ~/.ssh/id_ed25519",
+      "Copy your public key: cat ~/.ssh/id_ed25519.pub",
+      "Go to GitHub Settings > SSH and GPG keys > 'New SSH key', paste and save.",
+      "Verify with: ssh -T git@github.com"
+    ],
+    "proTip": "GitHub no longer accepts account passwords for terminal operations. SSH keys or Personal Access Tokens (PAT) are mandatory."
+  },
+  {
+    "id": "github-pages",
+    "icon": "🌐",
+    "title": "Hosting Free Websites with GitHub Pages",
+    "category": "Deployment",
+    "summary": "Host client-side static web apps, documentation, portfolios, and project demos directly from a repository.",
+    "steps": [
+      "Ensure your repository contains an index.html file in the root or /docs directory.",
+      "Navigate to repository Settings > Pages.",
+      "Under 'Build and deployment', choose Source: 'Deploy from a branch'.",
+      "Select branch: 'main' and folder: '/ (root)' or '/docs', then click Save.",
+      "Your site will be live in 1-2 minutes at https://<username>.github.io/<repo-name>/"
+    ],
+    "proTip": "GitHub Pages only supports static HTML, CSS, and clientside JS. Backend servers (Node.js/Python) require platforms like Render, Vercel, or Railway."
+  },
+  {
+    "id": "github-actions",
+    "icon": "⚙️",
+    "title": "GitHub Actions & CI/CD Pipelines",
+    "category": "Automation",
+    "summary": "Automate unit testing, linting, build verification, and deployment on every push and pull request.",
+    "steps": [
+      "Create a directory in your repo: .github/workflows/",
+      "Create a workflow YAML file, e.g., ci.yml.",
+      "Define triggers (on: [push, pull_request]), runner OS (runs-on: ubuntu-latest), and test steps.",
+      "Commit and push. GitHub will automatically run the workflow and report status checks on your PR."
+    ],
+    "proTip": "Public repositories get unlimited free GitHub Actions minutes for standard runners."
+  }
+]

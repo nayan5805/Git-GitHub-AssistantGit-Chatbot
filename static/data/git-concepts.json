@@ -1,0 +1,191 @@
+[
+  {
+    "id": "what-is-git",
+    "icon": "📦",
+    "title": "What is Git?",
+    "tag": "Fundamentals",
+    "description": "Git is a free and open-source distributed version control system (VCS) designed to handle everything from small to very large projects with speed and efficiency.",
+    "points": [
+      "Created by Linus Torvalds in 2005 to manage Linux kernel development.",
+      "Tracks changes across files over time, allowing you to recall specific versions later.",
+      "Operates completely offline on your local machine without needing an internet connection.",
+      "Every developer's clone is a full repository with complete history and revision-tracking capabilities."
+    ],
+    "example": "git init\ngit add .\ngit commit -m \"Save milestone snapshot\""
+  },
+  {
+    "id": "what-is-github",
+    "icon": "🐙",
+    "title": "What is GitHub?",
+    "tag": "Cloud Platform",
+    "description": "GitHub is a cloud-based hosting service and collaboration platform for Git repositories. It provides a web interface, social coding, and automation tools.",
+    "points": [
+      "Hosts your remote Git repositories securely in the cloud.",
+      "Facilitates team collaboration through Pull Requests, code reviews, and issue tracking.",
+      "Offers free static website hosting via GitHub Pages.",
+      "Provides CI/CD workflow automation through GitHub Actions.",
+      "Serves as the global hub for open-source software with over 100M+ developers."
+    ],
+    "example": "https://github.com/username/repository"
+  },
+  {
+    "id": "git-vs-github",
+    "icon": "⚖️",
+    "title": "Git vs GitHub: Key Differences",
+    "tag": "Comparison",
+    "description": "Beginners frequently confuse Git and GitHub. Git is the underlying version control tool running locally, while GitHub is a cloud hosting service.",
+    "isComparison": true,
+    "comparison": [
+      { "aspect": "Nature", "git": "Command-line software tool (CLI)", "github": "Web-based cloud hosting platform" },
+      { "aspect": "Location", "git": "Installed locally on your computer", "github": "Runs on remote servers in the cloud" },
+      { "aspect": "Internet", "git": "Works 100% offline", "github": "Requires an active internet connection" },
+      { "aspect": "Primary Role", "git": "Tracks file changes and commit history", "github": "Shares repositories and enables team collaboration" },
+      { "aspect": "Creation Year", "git": "2005 (by Linus Torvalds)", "github": "2008 (acquired by Microsoft in 2018)" },
+      { "aspect": "Competitors", "git": "Mercurial, SVN, Perforce", "github": "GitLab, Bitbucket, Azure DevOps" }
+    ]
+  },
+  {
+    "id": "vcs",
+    "icon": "⏳",
+    "title": "Version Control System (VCS)",
+    "tag": "Architecture",
+    "description": "A system that records changes to a file or set of files over time so you can recall specific versions, compare differences, and collaborate without stepping on teammates' toes.",
+    "points": [
+      "Local VCS: Simple database that kept all changes to files under revision control.",
+      "Centralized VCS (e.g. SVN): Single server containing all versioned files. Risk: single point of failure.",
+      "Distributed VCS (e.g. Git): Every checkout is a full mirror of the entire repository history. If a server dies, any client repo can restore it."
+    ],
+    "example": "# View full project timeline\ngit log --oneline --graph"
+  },
+  {
+    "id": "repository",
+    "icon": "📁",
+    "title": "Repository (Repo)",
+    "tag": "Core Concept",
+    "description": "A Git repository is essentially a directory containing all your project files alongside a hidden '.git' directory that houses the entire version database and history.",
+    "points": [
+      "Local Repository: Stored on your own machine's filesystem.",
+      "Remote Repository: Hosted on GitHub, GitLab, or an internal server.",
+      "The '.git' folder contains all commits, branches, tags, and configuration data."
+    ],
+    "example": "# Initialize in current folder\ngit init\n\n# Or clone from remote\ngit clone https://github.com/user/repo.git"
+  },
+  {
+    "id": "commit",
+    "icon": "📸",
+    "title": "Commit (Snapshot)",
+    "tag": "Core Concept",
+    "description": "A commit records changes to the repository. Unlike other VCS tools that store file differences, Git thinks of its data more like a set of snapshots of a miniature filesystem.",
+    "points": [
+      "Every commit has a unique 40-character SHA-1/SHA-256 hash (e.g. 7f8a3b2...).",
+      "Records who made the change (Author & Committer) and exact timestamp.",
+      "Requires a clear message describing why and what changed.",
+      "Commits are immutable: you never lose history unless explicitly forced."
+    ],
+    "example": "git commit -m \"feat: Add user authentication middleware\""
+  },
+  {
+    "id": "branch",
+    "icon": "🌿",
+    "title": "Branch",
+    "tag": "Workflow",
+    "description": "A branch in Git is simply a lightweight, movable pointer to one of your commits. The default branch name in modern Git repositories is 'main'.",
+    "points": [
+      "Branching is virtually instantaneous and consumes minimal disk space.",
+      "Enables developers to work on new features, experiment, or fix bugs without destabilizing production code.",
+      "Allows multiple team members to work on separate tasks simultaneously."
+    ],
+    "example": "# Create and switch\ngit switch -c feature-dashboard\n\n# Return to main\ngit switch main"
+  },
+  {
+    "id": "merge",
+    "icon": "🔀",
+    "title": "Merge",
+    "tag": "Workflow",
+    "description": "Merging combines the histories and file changes of two independent branches into a single unified branch.",
+    "points": [
+      "Fast-Forward Merge: Occurs when no divergent commits exist; Git simply moves the branch pointer forward.",
+      "3-Way Merge: Occurs when both branches have new commits. Git uses a common ancestor commit to create a new 'merge commit'.",
+      "If changes overlap on the same lines, Git flags a Merge Conflict for the developer to resolve."
+    ],
+    "example": "git switch main\ngit merge feature-dashboard"
+  },
+  {
+    "id": "clone",
+    "icon": "📥",
+    "title": "Clone",
+    "tag": "Collaboration",
+    "description": "Cloning copies an entire remote repository onto your local computer, including every version of every file, commit history, and branches.",
+    "points": [
+      "Automatically configures a remote pointer named 'origin' pointing back to the cloned URL.",
+      "Checks out the default branch (usually 'main') into your working directory.",
+      "You only need to clone a repository once; subsequent updates are received using 'git pull'."
+    ],
+    "example": "git clone https://github.com/torvalds/linux.git"
+  },
+  {
+    "id": "fork",
+    "icon": "🍴",
+    "title": "Fork",
+    "tag": "Collaboration",
+    "description": "A fork is a server-side copy of someone else's GitHub repository managed under your own GitHub account.",
+    "points": [
+      "Allows you to freely experiment and make changes without affecting the original project.",
+      "Standard starting point for open-source contributions.",
+      "You can push to your fork and submit your improvements back to the original author via a Pull Request."
+    ],
+    "example": "# After clicking 'Fork' on GitHub:\ngit clone https://github.com/YOUR-USERNAME/forked-repo.git\ngit remote add upstream https://github.com/ORIGINAL-OWNER/repo.git"
+  },
+  {
+    "id": "pull-request",
+    "icon": "🔄",
+    "title": "Pull Request (PR)",
+    "tag": "Collaboration",
+    "description": "A Pull Request is a GitHub mechanism to notify team members that you have completed a feature and want your changes merged into another branch.",
+    "points": [
+      "Provides a dedicated web interface for side-by-side code diffs and inline discussions.",
+      "Allows team leads to review code quality and enforce automated tests before merging.",
+      "Can be updated anytime by simply pushing new commits to the source branch."
+    ],
+    "example": "git push origin feature-payments\n# Then click 'Compare & pull request' on GitHub"
+  },
+  {
+    "id": "merge-conflict",
+    "icon": "⚔️",
+    "title": "Merge Conflict",
+    "tag": "Troubleshooting",
+    "description": "A merge conflict occurs when Git cannot automatically resolve differences in code between two commits, typically when two branches modify the exact same line.",
+    "points": [
+      "Git stops the merge process and marks the affected files with special conflict markers (<<<<<<<, =======, >>>>>>>).",
+      "Never fear conflicts: they are an intentional safeguard preventing Git from silently guessing and destroying your code.",
+      "Resolved manually by choosing which lines to keep, removing markers, staging, and committing."
+    ],
+    "example": "<<<<<<< HEAD\nconst api = 'https://api.v1.local';\n=======\nconst api = 'https://api.v2.production';\n>>>>>>> origin/main"
+  },
+  {
+    "id": "gitignore",
+    "icon": "🙈",
+    "title": ".gitignore File",
+    "tag": "Configuration",
+    "description": "A plain text file placed in your repository root that tells Git which files, folders, and patterns to intentionally ignore and exclude from version control.",
+    "points": [
+      "Prevents sensitive data like API keys, passwords, and .env files from leaking to GitHub.",
+      "Prevents bloating the repository with build artifacts, logs, node_modules/, and OS files (.DS_Store).",
+      "Only applies to untracked files; files already tracked by Git must be unstaged with 'git rm --cached'."
+    ],
+    "example": "# Example .gitignore\nnode_modules/\n.env\n__pycache__/\n*.log"
+  },
+  {
+    "id": "readme",
+    "icon": "📄",
+    "title": "README.md",
+    "tag": "Documentation",
+    "description": "The digital welcome mat of your repository. GitHub automatically displays the contents of README.md on the repository homepage.",
+    "points": [
+      "Written in Markdown (.md) syntax supporting headings, bolding, lists, code blocks, and images.",
+      "Crucial for communicating project purpose, installation instructions, usage examples, and licensing.",
+      "A well-crafted README distinguishes high-quality developer projects in college evaluations and job interviews."
+    ],
+    "example": "# Git & GitHub Assistant\n> Your Intelligent Coding Companion\n\n## Installation\n`pip install -r requirements.txt`"
+  }
+]

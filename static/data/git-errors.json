@@ -1,0 +1,135 @@
+[
+  {
+    "error": "fatal: not a git repository (or any of the parent directories): .git",
+    "keywords": ["not a git repository", "fatal", ".git"],
+    "description": "You are trying to run a Git command in a folder that is not a Git repository.",
+    "causes": [
+      "You haven't initialized a Git repository in this folder.",
+      "You are in the wrong directory.",
+      "The .git folder was accidentally deleted."
+    ],
+    "fixes": [
+      "Navigate to the correct project folder: cd your-project-folder",
+      "Initialize a new Git repository: git init",
+      "If you intended to clone a repo: git clone <repo-url>"
+    ],
+    "commands": ["cd your-project-folder", "git init", "git clone <repo-url>"]
+  },
+  {
+    "error": "fatal: remote origin already exists",
+    "keywords": ["remote origin already exists", "fatal", "origin"],
+    "description": "You are trying to add a remote named 'origin', but one is already configured.",
+    "causes": [
+      "A remote named 'origin' was already added previously.",
+      "You cloned the repository, which automatically sets up 'origin'."
+    ],
+    "fixes": [
+      "View existing remotes: git remote -v",
+      "Update the existing remote URL: git remote set-url origin <new-url>",
+      "Remove and re-add origin: git remote remove origin && git remote add origin <url>"
+    ],
+    "commands": ["git remote -v", "git remote set-url origin <new-url>", "git remote remove origin"]
+  },
+  {
+    "error": "error: failed to push some refs to (rejected non-fast-forward)",
+    "keywords": ["rejected", "non-fast-forward", "failed to push", "push"],
+    "description": "Push rejected because the remote branch has commits you don't have locally.",
+    "causes": [
+      "Someone else pushed changes to the remote branch.",
+      "You made changes directly on GitHub (like editing README).",
+      "Your local branch is behind the remote branch."
+    ],
+    "fixes": [
+      "Pull the remote changes first: git pull origin main",
+      "If there are conflicts, resolve them, then commit and push again.",
+      "If you're sure you want to overwrite (dangerous!): git push --force origin main"
+    ],
+    "commands": ["git pull origin main", "git push origin main", "git push --force origin main"]
+  },
+  {
+    "error": "CONFLICT (content): Merge conflict in <file>",
+    "keywords": ["merge conflict", "CONFLICT", "conflict", "merge"],
+    "description": "Git found conflicting changes in the same part of a file during a merge or pull.",
+    "causes": [
+      "Two branches modified the same lines in a file.",
+      "A remote change conflicts with your local change.",
+      "A rebase encountered conflicting edits."
+    ],
+    "fixes": [
+      "Open the conflicting file and look for conflict markers: <<<<<<< ======= >>>>>>>",
+      "Edit the file to keep the correct changes and remove the markers.",
+      "Stage the resolved file: git add <file>",
+      "Complete the merge: git commit"
+    ],
+    "commands": ["git add <resolved-file>", "git commit", "git merge --abort"]
+  },
+  {
+    "error": "Permission denied (publickey)",
+    "keywords": ["permission denied", "publickey", "ssh", "authentication"],
+    "description": "SSH authentication failed. Your SSH key is not configured or not recognized by GitHub.",
+    "causes": [
+      "SSH keys are not generated on your machine.",
+      "Your SSH key is not added to your GitHub account.",
+      "The SSH agent is not running.",
+      "You're using the wrong SSH key."
+    ],
+    "fixes": [
+      "Generate an SSH key: ssh-keygen -t ed25519 -C \"your_email@example.com\"",
+      "Start the SSH agent: eval \"$(ssh-agent -s)\"",
+      "Add your key to the agent: ssh-add ~/.ssh/id_ed25519",
+      "Copy your public key and add it to GitHub Settings > SSH Keys",
+      "Test connection: ssh -T git@github.com",
+      "Alternative: Use HTTPS URL instead of SSH"
+    ],
+    "commands": ["ssh-keygen -t ed25519 -C \"your_email@example.com\"", "ssh-add ~/.ssh/id_ed25519", "ssh -T git@github.com", "cat ~/.ssh/id_ed25519.pub"]
+  },
+  {
+    "error": "fatal: Authentication failed",
+    "keywords": ["authentication failed", "fatal", "credentials", "password", "token"],
+    "description": "Git could not verify your identity. Typically happens with HTTPS using wrong credentials.",
+    "causes": [
+      "GitHub no longer accepts password authentication for HTTPS.",
+      "Your Personal Access Token (PAT) has expired.",
+      "Wrong username or token provided."
+    ],
+    "fixes": [
+      "Generate a new Personal Access Token on GitHub > Settings > Developer settings > Tokens",
+      "Use the token as your password when prompted.",
+      "Update stored credentials in your system's credential manager.",
+      "Consider switching to SSH authentication."
+    ],
+    "commands": ["git remote set-url origin https://<token>@github.com/username/repo.git", "git config --global credential.helper store"]
+  },
+  {
+    "error": "error: src refspec main does not match any",
+    "keywords": ["src refspec", "does not match", "main", "master"],
+    "description": "You're trying to push to a branch that doesn't exist locally, usually because no commits have been made.",
+    "causes": [
+      "You haven't made any commits yet.",
+      "The branch name is wrong (e.g., 'main' vs 'master').",
+      "The repository was just initialized without any files."
+    ],
+    "fixes": [
+      "Make sure you have at least one commit: git add . && git commit -m \"Initial commit\"",
+      "Check your current branch name: git branch",
+      "If the branch is 'master', push to master: git push origin master",
+      "Rename branch if needed: git branch -M main"
+    ],
+    "commands": ["git add .", "git commit -m \"Initial commit\"", "git branch", "git branch -M main", "git push -u origin main"]
+  },
+  {
+    "error": "error: Your local changes to the following files would be overwritten by merge",
+    "keywords": ["local changes", "overwritten", "merge", "checkout"],
+    "description": "Git is preventing a merge or checkout because you have uncommitted changes that would be lost.",
+    "causes": [
+      "You have modified files that conflict with incoming changes.",
+      "Uncommitted work exists that hasn't been saved."
+    ],
+    "fixes": [
+      "Option 1: Save changes with stash: git stash, then pull/merge, then git stash pop",
+      "Option 2: Commit your changes: git add . && git commit -m \"Save work\"",
+      "Option 3: Discard local changes (destructive): git checkout -- <file>"
+    ],
+    "commands": ["git stash", "git pull origin main", "git stash pop", "git add .", "git commit -m \"Save current work\""]
+  }
+]

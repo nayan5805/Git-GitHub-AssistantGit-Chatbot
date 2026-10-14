@@ -1,0 +1,122 @@
+[
+  {
+    "question": "What does 'git init' do?",
+    "options": ["Installs Git on your computer", "Initializes a new Git repository in the current directory", "Clones a repository from GitHub", "Deletes the current repository"],
+    "correct": 1,
+    "explanation": "'git init' creates a new .git directory in your current folder, turning it into a Git repository that can track changes."
+  },
+  {
+    "question": "Which command is used to stage all changes for the next commit?",
+    "options": ["git commit -a", "git stage .", "git add .", "git push ."],
+    "correct": 2,
+    "explanation": "'git add .' stages all modified and new files in the current directory and its subdirectories for the next commit."
+  },
+  {
+    "question": "What is the difference between Git and GitHub?",
+    "options": ["They are the same thing", "Git is a version control system; GitHub is a cloud hosting platform for Git repositories", "GitHub is a version control system; Git is a website", "Git is only for Linux; GitHub is for Windows"],
+    "correct": 1,
+    "explanation": "Git is a local version control system that tracks changes in your code. GitHub is a web-based platform that hosts Git repositories online for collaboration."
+  },
+  {
+    "question": "Which command creates a new branch called 'feature'?",
+    "options": ["git new feature", "git branch feature", "git create branch feature", "git checkout feature"],
+    "correct": 1,
+    "explanation": "'git branch feature' creates a new branch named 'feature' but does not switch to it. Use 'git switch feature' to switch."
+  },
+  {
+    "question": "What does 'git clone' do?",
+    "options": ["Creates a new empty repository", "Copies a file within the repository", "Creates a local copy of a remote repository", "Merges two branches together"],
+    "correct": 2,
+    "explanation": "'git clone <url>' downloads the entire repository from a remote source, including all files, branches, and commit history."
+  },
+  {
+    "question": "What is a 'commit' in Git?",
+    "options": ["Uploading code to GitHub", "A snapshot of your project at a specific point in time", "Deleting old code", "Creating a new branch"],
+    "correct": 1,
+    "explanation": "A commit is a saved snapshot of your staged changes. It includes a unique ID (hash), author, timestamp, and a message describing the changes."
+  },
+  {
+    "question": "Which command uploads your local commits to GitHub?",
+    "options": ["git upload origin main", "git send origin main", "git push origin main", "git commit origin main"],
+    "correct": 2,
+    "explanation": "'git push origin main' sends your local commits on the 'main' branch to the remote repository named 'origin' (typically GitHub)."
+  },
+  {
+    "question": "What does the '.gitignore' file do?",
+    "options": ["Deletes unwanted files from the repository", "Specifies files and directories that Git should not track", "Ignores all commits", "Removes Git from the project"],
+    "correct": 1,
+    "explanation": "The .gitignore file tells Git which files or directories to exclude from version control, such as node_modules, .env files, or build artifacts."
+  },
+  {
+    "question": "What is a 'merge conflict'?",
+    "options": ["When Git cannot be installed", "When two branches have changes to the same lines that Git cannot automatically combine", "When a file is deleted by accident", "When a commit message is missing"],
+    "correct": 1,
+    "explanation": "A merge conflict occurs when two branches modify the same part of a file differently. Git cannot decide which change to keep, so you must resolve it manually."
+  },
+  {
+    "question": "Which command shows the current status of your working directory?",
+    "options": ["git info", "git check", "git status", "git log"],
+    "correct": 2,
+    "explanation": "'git status' shows which files are modified, staged, or untracked. It's one of the most frequently used Git commands."
+  },
+  {
+    "question": "What is a 'pull request' on GitHub?",
+    "options": ["A command to download code", "A request to merge changes from one branch into another, with review", "A request to delete a repository", "A way to revert commits"],
+    "correct": 1,
+    "explanation": "A pull request (PR) is a GitHub feature that lets you propose changes from one branch to another. Team members can review, discuss, and approve before merging."
+  },
+  {
+    "question": "What does 'git pull' do?",
+    "options": ["Uploads local changes to the remote", "Downloads changes from the remote and merges them into your local branch", "Creates a new branch", "Shows the commit history"],
+    "correct": 1,
+    "explanation": "'git pull' is a combination of 'git fetch' (download changes) and 'git merge' (integrate them). It updates your local branch with remote changes."
+  },
+  {
+    "question": "What is 'forking' a repository on GitHub?",
+    "options": ["Deleting a repository", "Creating your own copy of someone else's repository under your account", "Merging two repositories", "Renaming a repository"],
+    "correct": 1,
+    "explanation": "Forking creates a personal copy of another user's repository on your GitHub account. You can freely modify it without affecting the original project."
+  },
+  {
+    "question": "Which command temporarily saves uncommitted changes?",
+    "options": ["git save", "git stash", "git store", "git cache"],
+    "correct": 1,
+    "explanation": "'git stash' temporarily saves your uncommitted changes and restores a clean working directory. Use 'git stash pop' to reapply them later."
+  },
+  {
+    "question": "What does 'git log --oneline' display?",
+    "options": ["Only the last commit", "A compact list of commits with short hashes and messages", "All file changes in detail", "The repository configuration"],
+    "correct": 1,
+    "explanation": "'git log --oneline' shows a condensed view of the commit history, with each commit on a single line showing its abbreviated hash and message."
+  },
+  {
+    "question": "What is the purpose of 'git fetch'?",
+    "options": ["Downloads remote changes without merging them", "Uploads local changes to the remote", "Deletes remote branches", "Creates a new repository"],
+    "correct": 0,
+    "explanation": "'git fetch' downloads new data from the remote repository but does NOT merge it. It lets you review changes before integrating them."
+  },
+  {
+    "question": "Which file typically contains project description and instructions on GitHub?",
+    "options": [".gitignore", "LICENSE", "README.md", "package.json"],
+    "correct": 2,
+    "explanation": "README.md is a Markdown file that serves as the front page of your GitHub repository. It typically contains project description, setup instructions, and usage guide."
+  },
+  {
+    "question": "What does 'git branch -d feature' do?",
+    "options": ["Creates a branch named 'feature'", "Switches to the 'feature' branch", "Deletes the 'feature' branch (if fully merged)", "Renames the 'feature' branch"],
+    "correct": 2,
+    "explanation": "'git branch -d feature' safely deletes the 'feature' branch only if it has been fully merged. Use -D (capital) to force delete an unmerged branch."
+  },
+  {
+    "question": "What is the HEAD in Git?",
+    "options": ["The first commit in the repository", "A pointer to the current commit you are working on", "The name of the default branch", "The remote server address"],
+    "correct": 1,
+    "explanation": "HEAD is a pointer that refers to the current commit in your repository. It tells Git where you are in the commit history."
+  },
+  {
+    "question": "Which command shows the differences between your working directory and the staging area?",
+    "options": ["git log", "git status", "git diff", "git show"],
+    "correct": 2,
+    "explanation": "'git diff' shows line-by-line changes between your working directory and the staging area. Use 'git diff --staged' to see staged changes."
+  }
+]
